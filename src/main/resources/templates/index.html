@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <div class="table-container">
+    <h2>All Requests</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>City</th>
+            <th>Current Temp</th>
+            <th>Humidity</th>
+            <th>Wind Speed</th>
+            <th>Condition</th>
+            <th>Tomorrow's Temp</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${requests}" th:id="${request.id}">
+        <td th:text="${request.id}" ></td>
+            <td th:text="${request.user.username}"></td>
+            <td th:text="${request.weatherResponse.city}"></td>
+            <td th:text="${request.weatherResponse.currentTemp}"></td>
+            <td th:text="${request.weatherResponse.humidity}"></td>
+            <td th:text="${request.weatherResponse.windSpeed}"></td>
+            <td th:text="${request.weatherResponse.condition}"></td>
+            <td th:text="${request.weatherResponse.tomorrowTemp}"></td>
+            <td>
+                <form th:action="@{/requests/deleteRequest/{id}(id=${request.id})}" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+
+
+
+</body>
+</html>

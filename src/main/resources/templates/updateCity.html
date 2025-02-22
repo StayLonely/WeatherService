@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update City</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>Update City</h1>
+    <form action="/updateCity" method="post">
+        <label for="username">Name:</label>
+        <select id="username" name="username" required>
+            <option value="" disabled selected>Select a city</option>
+            <option th:each="user : ${users}"
+                    th:value="${user.getUsername()}"
+                    th:text="${user}"></option>
+        </select>
+        <label for="city">New City:</label>
+        <select id="city" name="city" required>
+            <option value="" disabled selected>Select a city</option>
+            <option th:each="city : ${cities}"
+                    th:value="${city}"
+                    th:text="${city}"></option>
+        </select>
+        <button type="submit">Update City</button>
+    </form>
+    <p th:text="${message}"></p>
+</div>
+</body>
+</html>

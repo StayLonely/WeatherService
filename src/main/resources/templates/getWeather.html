@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Weather</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>Get Weather</h1>
+    <form action="/weather" method="post">
+        <label for="username">Name:</label>
+        <select id="username" name="username" required>
+            <option value="" disabled selected>Select a user</option>
+            <option th:each="user : ${users}"
+                    th:value="${user.getUsername()}"
+                    th:text="${user.username} + ' - ' + ${user.city}"></option>
+        </select>
+        <button type="submit">Get Weather</button>
+    </form>
+    <div th:if="${weatherResponse}">
+        <h2>Weather in <span th:text="${weatherResponse.city}"></span></h2>
+        <p>Current Temperature: <span th:text="${weatherResponse.currentTemp}"></span>°C</p>
+        <p>Humidity: <span th:text="${weatherResponse.humidity}"></span>%</p>
+        <p>Wind Speed: <span th:text="${weatherResponse.windSpeed}"></span> m/s</p>
+        <p>Condition: <span th:text="${weatherResponse.condition}"></span></p>
+        <p>Tomorrow's Temperature: <span th:text="${weatherResponse.tomorrowTemp}"></span>°C</p>
+    </div>
+    <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+</div>
+</body>
+</html>

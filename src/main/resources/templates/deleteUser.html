@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1>Delete User</h1>
+    <form action="/deleteUser" method="post">
+        <label for="username">Name:</label>
+        <select id="username" name="username" required>
+            <option value="" disabled selected>Select a user</option>
+            <option th:each="user : ${users}"
+                    th:value="${user.getUsername()}"
+                    th:text="${user}"></option>
+        </select>
+        <button type="submit">Delete User</button>
+    </form>
+    <p th:text="${message}"></p>
+</div>
+</body>
+</html>
